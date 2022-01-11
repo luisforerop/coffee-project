@@ -1,5 +1,6 @@
 import express, { Express, Router } from 'express'
 import cors from 'cors'
+import { dbConnection } from './database'
 
 class Server {
   private app: Express
@@ -8,7 +9,12 @@ class Server {
   constructor(port: string) {
     this.app = express()
     this.port = port
+    this.connectWithDataBase()
     this.middleware()
+  }
+
+  async connectWithDataBase () {
+    await dbConnection()
   }
 
   setRoutes(path: string, router: Router) {
