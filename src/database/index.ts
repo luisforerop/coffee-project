@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
+import { connect } from 'mongoose'
 
 
 export const dbConnection = async () => {
   const uri = `${process.env.MONGO_CCN}`
-  mongoose.connect(uri)
+  connect(uri)
     .then(() => {
       console.log('Data base is connected');
     })
