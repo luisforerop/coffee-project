@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { dataUser, saveUser, todoUserList } from "./users.controller";
+import { dataUser, createUser, todoUserList } from "./users.controller";
 
 const usersRouter = Router()
 
-usersRouter.post('/newUser', saveUser)
+usersRouter.post('/register-user', createUser)
 
 usersRouter.get('/dataUser/:id', dataUser)
 

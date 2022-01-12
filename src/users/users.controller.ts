@@ -1,11 +1,20 @@
-import { RequestHandler } from "express";
+import { json, RequestHandler } from "express";
+import { iUser } from '../models/user'
+import saveUserInDataBase from "./user.services";
 
-
-export const saveUser: RequestHandler = (req, res) => {
-  const { name, id } = req.body
-  res.status(200).json({
-    name, id
-  })
+export const createUser: RequestHandler = async (req, res) => {
+  const body: iUser = req.body
+  saveUserInDataBase(body)
+    .then(user => {
+      res.status(200).json({
+        user
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        msg: 'Error'
+      })
+    })
 }
 
 export const dataUser: RequestHandler = (req, res) => {
