@@ -1,6 +1,6 @@
 type Rol = 'ADMIN' | 'USER' 
 
-interface iUser {
+export interface iUser {
   name: string
   email: string
   password: string

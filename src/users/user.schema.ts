@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose'
+import { iUser } from '../models/user'
 
 const userSchema = new Schema<iUser>({
   name: { type: String, required: [true, 'The name is required'] },
@@ -14,4 +15,4 @@ const userSchema = new Schema<iUser>({
   googleAccount: { type: Boolean, default: true },
 })
 
-export const userModel = model<iUser>('User', userSchema)
+export const UserModel = model<iUser>('User', userSchema)
