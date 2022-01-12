@@ -1,4 +1,4 @@
-import { json, RequestHandler } from "express";
+import { RequestHandler } from "express";
 import { iUser } from '../models/user'
 import saveUserInDataBase from "./user.services";
 

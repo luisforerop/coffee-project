@@ -12,7 +12,7 @@ const userSchema = new Schema<iUser>({
     enum: ['ADMIN', 'USER'],
   },
   state: { type: Boolean, default: true },
-  googleAccount: { type: Boolean, default: true },
+  googleAccount: { type: Boolean, default: false },
 })
 
 export const UserModel = model<iUser>('User', userSchema)

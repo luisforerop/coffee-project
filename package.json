@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/luisforerop/coffee-project#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "ts-node-dev": "^1.1.8",
