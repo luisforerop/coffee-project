@@ -4,8 +4,8 @@ export interface iUser {
   name: string
   email: string
   password: string
-  profileImage: string
+  profileImage?: string
   rol: Rol
-  state: boolean
-  googleAccount: boolean
+  state?: boolean
+  googleAccount?: boolean
 }
