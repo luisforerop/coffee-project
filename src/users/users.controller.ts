@@ -4,10 +4,6 @@ import { iUser } from '../models/user'
 import { saveUserInDataBase } from "./user.services";
 
 export const createUser: RequestHandler = async (req, res) => {
-  const errors = validationResult(req)
-  if(!errors.isEmpty()) {
-    return res.status(400).json(errors)
-  }
   const body: iUser = req.body
   const { name, email, password, rol } = body
   saveUserInDataBase({
