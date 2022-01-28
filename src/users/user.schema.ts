@@ -1,7 +1,11 @@
-import { model, Schema } from 'mongoose'
+import { model, Schema, Document } from 'mongoose'
 import { iUser } from '../models/user'
 
-const userSchema = new Schema<iUser>({
+interface connectorUser extends Document, iUser {
+
+}
+
+const userSchema = new Schema<connectorUser>({
   name: { type: String, required: [true, 'The name is required'] },
   email: { type: String, required: [true, 'The email is required'], unique: true },
   password: { type: String, required: [true, 'The password is required'] },
@@ -15,4 +19,4 @@ const userSchema = new Schema<iUser>({
   googleAccount: { type: Boolean, default: false },
 })
 
-export const UserModel = model<iUser>('User', userSchema)
+export const UserModel = model<connectorUser>('User', userSchema)
