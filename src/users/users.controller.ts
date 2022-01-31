@@ -1,17 +1,17 @@
 import { RequestHandler } from "express";
-import { validationResult } from "express-validator";
 import { iUser } from '../models/user'
 import { saveUserInDataBase } from "./user.services";
 
 export const createUser: RequestHandler = async (req, res) => {
   const body: iUser = req.body
-  const { name, email, password, rol } = body
+  const { name, email, password, role } = body
   saveUserInDataBase({
-    name, email, password, rol
+    name, email, password, role
   })
-  .then(({statusCode, message}) => {
+  .then(({statusCode, message, data}) => {
     res.status(statusCode).json({
-      message
+      message,
+      data
     })
   })
   .catch(error => {

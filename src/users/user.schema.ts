@@ -10,13 +10,14 @@ const userSchema = new Schema<connectorUser>({
   email: { type: String, required: [true, 'The email is required'], unique: true },
   password: { type: String, required: [true, 'The password is required'] },
   profileImage: String,
-  rol: {
-    type: String,
-    required: true,
-    enum: ['ADMIN', 'USER'],
-  },
+  role: { type: String, required: true },
   state: { type: Boolean, default: true },
   googleAccount: { type: Boolean, default: false },
 })
+
+userSchema.methods.toJSON = function () {
+  const { __v, password, ...user } = this.toObject()
+  return user
+}
 
 export const UserModel = model<connectorUser>('User', userSchema)
