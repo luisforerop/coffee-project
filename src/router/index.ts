@@ -5,7 +5,7 @@ import usersRouter from "../users/users.routes";
 const notFound = Router()
 
 notFound.get('*', (_, res) => {
-  res.sendFile(`D:/DEVELOP PROJECTS/web-server/public/404.html`) // Pendiente regex para sacar el path sin src
+  res.sendFile(`D:/develop-projects/web-server/public/404.html`) // Pendiente regex para sacar el path sin src
 })
 
 const test: RequestHandler = (req, res) => {
