@@ -6,8 +6,11 @@ type expressValidatorErrorType = {
 }
 
 export interface iResponse {
-  statusCode: number,
   message?: any
   errors?: expressValidatorErrorType[]
   data?: any
+}
+
+export interface iControllerResponse extends iResponse {
+  statusCode: number
 }

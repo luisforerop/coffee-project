@@ -8,3 +8,8 @@ export const emailRegistered: CustomValidator = async ( email: string ) => {
 		throw new Error(`The email ${email} already exists.`)
   }
 }
+
+export const userIdExist: CustomValidator = async (id: string) => {
+	const existUser = await UserModel.findById(id)
+	if(!existUser) throw new Error(`There is no user with the id ${id}.`)
+}
