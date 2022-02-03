@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { iUser } from '../models/user'
 import { iResponse } from "../types";
-import { saveUserInDataBase, updateDataUserService  } from "./user.services";
+import { saveUserInDataBase, updateDataUserService, userWithPaginationService  } from "./user.services";
 
 // Implement JOI for strict validations
 
@@ -35,7 +35,6 @@ export const dataUser: RequestHandler<any, iResponse, iUser> = (req, res) => {
 
 export const updateDataUser: RequestHandler<any, iResponse, iUser> = (req, res) => {
   const { id } = req.params
-  console.log(id);
   
   const { state, googleAccount, ...userData } = req.body
   updateDataUserService(userData, id)
@@ -57,4 +56,23 @@ export const todoUserList: RequestHandler = (req, res) => {
   res.status(200).json({
     todos
   })
+}
+
+export const userWithPagination: RequestHandler = (req, res) => {
+  const { usersPerPage = 5, page = 1 } = req.query
+  const userPerPageParsed: number = Number(usersPerPage) > 0 ? Number(usersPerPage) : 5 
+  const pageParsed: number = Number(page) > 0 ? Number(page) : 1
+
+  userWithPaginationService(userPerPageParsed, pageParsed)
+    .then(({statusCode, data, message}) => {
+      res.status(statusCode).json({
+        message,
+        data
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Internal error',
+      })
+    })
 }

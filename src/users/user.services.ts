@@ -13,7 +13,7 @@ export const saveUserInDataBase = async (userData: iUser) => {
       await user.save()
       return resolve({
         statusCode: 200,
-        message: 'User saved successfully', 
+        message: 'User saved successfully',
         data: { user }
       })
     } catch (error) {
@@ -30,11 +30,11 @@ export const updateDataUserService = async (userData: iUser, id: string) => {
   }
   return new Promise<iControllerResponse>(async (resolve, reject) => {
     try {
-      const newUser = await UserModel.findByIdAndUpdate( id, userData)      
+      const newUser = await UserModel.findByIdAndUpdate(id, userData)
       return resolve({
         statusCode: 200,
-        message: 'User info updated successfully', 
-        data: { 
+        message: 'User info updated successfully',
+        data: {
           ...userData
         }
       })
@@ -43,6 +43,32 @@ export const updateDataUserService = async (userData: iUser, id: string) => {
       return reject(error)
     }
   })
+}
 
+export const userWithPaginationService = async (userPerPage: number, page: number) => {
+  const query = { state: true }
+  const getFrom = (userPerPage: number, page: number) => userPerPage * (page - 1)
 
+  return new Promise<iControllerResponse>(async (resolve, reject) => {
+    try {
+      const len = await UserModel.countDocuments(query)
+      const quantityOfPages = Math.ceil(len / userPerPage)
+      const limit: number = userPerPage
+      const from: number = getFrom(userPerPage, (page > quantityOfPages ? quantityOfPages : page)) 
+
+      const users = await UserModel.find(query)
+        .skip(from)
+        .limit(limit)
+
+      return resolve({
+        statusCode: 200,
+        data: {
+          users
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      return reject(error)
+    }
+  })
 }
