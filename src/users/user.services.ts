@@ -51,8 +51,8 @@ export const userWithPaginationService = async (userPerPage: number, page: numbe
 
   return new Promise<iControllerResponse>(async (resolve, reject) => {
     try {
-      const len = await UserModel.countDocuments(query)
-      const quantityOfPages = Math.ceil(len / userPerPage)
+      const usersQuantity = await UserModel.countDocuments(query)
+      const quantityOfPages = Math.ceil(usersQuantity / userPerPage)
       const limit: number = userPerPage
       const from: number = getFrom(userPerPage, (page > quantityOfPages ? quantityOfPages : page)) 
 
@@ -63,7 +63,9 @@ export const userWithPaginationService = async (userPerPage: number, page: numbe
       return resolve({
         statusCode: 200,
         data: {
-          users
+          users,
+          pages: quantityOfPages,
+          usersQuantity
         }
       })
     } catch (error) {
