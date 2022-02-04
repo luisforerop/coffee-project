@@ -10,6 +10,11 @@ const validatorMiddlewares: RequestHandler = ( req, res, next ) => {
   next()
 }
 
+const isExistenceValidations = [
+  check('id', 'It is not a valid mongoId').isMongoId(),
+  check('id').custom(userIdExist), 
+]
+
 export const registerUserMiddlewares = [
   check('email', 'The email is not valid.').isEmail(),
   check('password', 'The password must be at least 8 characters long.').isLength({ min: 8 }),
@@ -20,8 +25,12 @@ export const registerUserMiddlewares = [
 ] 
 
 export const updateDataUserMiddlewares = [
-  check('id', 'It is not a valid mongoId').isMongoId(),
-  check('id').custom(userIdExist), 
+  ...isExistenceValidations,
   check('role').custom(updateRoleValidator), 
+  validatorMiddlewares,
+]
+
+export const deleteUserMiddleware = [
+  ...isExistenceValidations,
   validatorMiddlewares,
 ]

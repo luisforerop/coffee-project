@@ -74,3 +74,17 @@ export const userWithPaginationService = async (userPerPage: number, page: numbe
     }
   })
 }
+
+export const changeStateToDelete = async (id: string) => {
+  return new Promise<iControllerResponse>(async (resolve, reject) => {
+    try {
+      const deletedUsers = await UserModel.findByIdAndUpdate(id, { state: false })
+      return resolve({
+        statusCode: 200,
+        message: `${deletedUsers?.name} has been deleted.`
+      })
+    } catch (error) {
+      return reject(error)
+    }
+  })
+}
