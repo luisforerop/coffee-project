@@ -5,15 +5,12 @@ import usersRouter from "../users/users.routes";
 const notFound = Router()
 
 notFound.get('*', (_, res) => {
-  res.sendFile(`D:/develop-projects/web-server/public/404.html`) // Pendiente regex para sacar el path sin src
+  res.status(404).json({
+    errors: [{
+      msg: 'The resource you are looking for does not exist or has moved to another location.'
+    }]
+  })
 })
-
-const test: RequestHandler = (req, res) => {
-  res.status(400)
-}
- 
-
-notFound.get('', test)
 
 const setRoutes = (server: Server) => {
   server.setRoutes('/users', usersRouter)
