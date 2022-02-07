@@ -27,6 +27,7 @@ export const registerUserMiddlewares = [
 export const updateDataUserMiddlewares = [
   ...isExistenceValidations,
   check('role').custom(updateRoleValidator), 
+  check('email', 'You can not update the email using this endpoint. Please, check the documentation.').isEmpty(),
   validatorMiddlewares,
 ]
 
