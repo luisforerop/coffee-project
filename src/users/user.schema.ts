@@ -16,7 +16,7 @@ const userSchema = new Schema<connectorUser>({
 })
 
 userSchema.methods.toJSON = function () {
-  const { __v, password, ...user } = this.toObject()
+  const { __v, password, state, googleAccount, ...user } = this.toObject()
   return user
 }
 
