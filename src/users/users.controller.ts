@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { iUser } from '../models/user'
 import { iResponse } from "../types";
-import { saveUserInDataBase, updateDataUserService, userWithPaginationService, changeStateToDelete } from "./user.services";
+import { saveUserInDataBase, updateDataUserService, userWithPaginationService, changeStateToDelete, getUserInfoById } from "./user.services";
 
 // Implement JOI for strict validations
 
@@ -27,9 +27,17 @@ export const createUser: RequestHandler<any, iResponse, iUser> = async (req, res
 
 export const dataUser: RequestHandler<any, iResponse, iUser> = (req, res) => {
   const { id } = req.params
-
-  res.json({
-    message: 'test',
+  getUserInfoById(id)
+  .then(({statusCode, data, message}) => {
+    res.status(statusCode).json({
+      message,
+      data
+    })
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Internal error',
+    })
   })
 }
 

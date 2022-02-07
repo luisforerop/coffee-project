@@ -45,6 +45,8 @@ export const updateDataUserService = async (userData: iUser, id: string) => {
   })
 }
 
+// Implement conditional: Only the admin role can obtain all users
+
 export const userWithPaginationService = async (userPerPage: number, page: number) => {
   const query = { state: true }
   const getFrom = (userPerPage: number, page: number) => userPerPage * (page - 1)
@@ -88,3 +90,23 @@ export const changeStateToDelete = async (id: string) => {
     }
   })
 }
+
+export const getUserInfoById = async (id: string) => {
+  return new Promise<iControllerResponse>(async (resolve, reject) => {
+    try {
+      const userData = await UserModel.findById(id)
+      if(!userData?.state) {
+        return resolve({
+          statusCode: 200,
+          message: `The user does not exist.`
+        })
+      }
+      return resolve({
+        statusCode: 200,
+        data: userData
+      })
+    } catch (error) {
+      return reject(error)
+    }
+  })
+} 
