@@ -1,4 +1,4 @@
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 import Server from "../server";
 import usersRouter from "../users/users.routes";
 
