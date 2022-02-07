@@ -12,41 +12,41 @@ export const createUser: RequestHandler<any, iResponse, iUser> = async (req, res
   saveUserInDataBase({
     name, email, password, role
   })
-  .then(({statusCode, message, data}) => {
-    res.status(statusCode).json({
-      message,
-      data
+    .then(({ statusCode, message, data }) => {
+      res.status(statusCode).json({
+        message,
+        data
+      })
     })
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: 'Internal error',
+    .catch(error => {
+      res.status(500).json({
+        message: 'Internal error',
+      })
     })
-  })
 }
 
 export const dataUser: RequestHandler<any, iResponse, iUser> = (req, res) => {
   const { id } = req.params
   getUserInfoById(id)
-  .then(({statusCode, data, message}) => {
-    res.status(statusCode).json({
-      message,
-      data
+    .then(({ statusCode, data, message }) => {
+      res.status(statusCode).json({
+        message,
+        data
+      })
     })
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: 'Internal error',
+    .catch(error => {
+      res.status(500).json({
+        message: 'Internal error',
+      })
     })
-  })
 }
 
 export const updateDataUser: RequestHandler<any, iResponse, iUser> = (req, res) => {
   const { id } = req.params
-  
+
   const { state, googleAccount, ...userData } = req.body
   updateDataUserService(userData, id)
-    .then(({statusCode, data, message}) => {
+    .then(({ statusCode, data, message }) => {
       res.status(statusCode).json({
         message,
         data
@@ -61,11 +61,13 @@ export const updateDataUser: RequestHandler<any, iResponse, iUser> = (req, res) 
 
 export const userWithPagination: RequestHandler = (req, res) => {
   const { usersPerPage = 5, page = 1 } = req.query
-  const userPerPageParsed: number = Number(usersPerPage) > 0 ? Number(usersPerPage) : 5 
+  const quantityOfUsersPerPage = Number(usersPerPage)
+  const usersPerPageInRange = quantityOfUsersPerPage > 0 && quantityOfUsersPerPage <= 20 
+  const userPerPageParsed: number = usersPerPageInRange ? quantityOfUsersPerPage : 5
   const pageParsed: number = Number(page) > 0 ? Number(page) : 1
 
   userWithPaginationService(userPerPageParsed, pageParsed)
-    .then(({statusCode, data, message}) => {
+    .then(({ statusCode, data, message }) => {
       res.status(statusCode).json({
         message,
         data
@@ -81,7 +83,7 @@ export const userWithPagination: RequestHandler = (req, res) => {
 export const deleteUser: RequestHandler = (req, res) => {
   const { id } = req.params
   changeStateToDelete(id)
-    .then(({statusCode, data, message}) => {
+    .then(({ statusCode, data, message }) => {
       res.status(statusCode).json({
         message,
         data
