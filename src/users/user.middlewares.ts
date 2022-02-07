@@ -35,3 +35,8 @@ export const deleteUserMiddleware = [
   ...isExistenceValidations,
   validatorMiddlewares,
 ]
+
+export const getDataUserMiddleware = [
+  ...isExistenceValidations,
+  validatorMiddlewares,
+]

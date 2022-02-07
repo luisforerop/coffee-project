@@ -11,5 +11,5 @@ export const emailRegistered: CustomValidator = async ( email: string ) => {
 
 export const userIdExist: CustomValidator = async (id: string) => {
 	const existUser = await UserModel.findById(id)
-	if(!existUser) throw new Error(`There is no user with the id ${id}.`)
+	if(!existUser || !existUser.state) throw new Error(`There is no user with the id ${id} or possibly the user has unsubscribed .`)
 }

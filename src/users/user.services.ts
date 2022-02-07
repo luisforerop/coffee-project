@@ -95,12 +95,6 @@ export const getUserInfoById = async (id: string) => {
   return new Promise<iControllerResponse>(async (resolve, reject) => {
     try {
       const userData = await UserModel.findById(id)
-      if(!userData?.state) {
-        return resolve({
-          statusCode: 200,
-          message: `The user does not exist.`
-        })
-      }
       return resolve({
         statusCode: 200,
         data: userData
