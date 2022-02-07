@@ -19,8 +19,8 @@ export const registerUserMiddlewares = [
   check('email', 'The email is not valid.').isEmail(),
   check('password', 'The password must be at least 8 characters long.').isLength({ min: 8 }),
   check('name', 'The username is required.').not().isEmpty(),
-  check('email', 'The email exist').custom(emailRegistered),
-  check('role', 'It is not a valid role.').custom(roleValidator), 
+  check('email').custom(emailRegistered),
+  check('role').custom(roleValidator), 
   validatorMiddlewares,
 ] 
 
