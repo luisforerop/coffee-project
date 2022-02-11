@@ -18,7 +18,7 @@ class Server {
   middleware ( ) {
     this._app.use( express.json() )
     this._app.use( cors() )
-    this._app.use( express.static(`D:/develop-projects/web-server/public`) )
+    this._app.use( express.static(`${__dirname}/../public`) )
   }
 
   start() {
